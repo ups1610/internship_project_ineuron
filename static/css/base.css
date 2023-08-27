@@ -52,6 +52,26 @@ body{
     width: 83.5%;
 }
 
+.log-control{
+    display: none;
+}
+
+@media screen and (min-width:250px) and (max-width:402px) {
+    #side_nav.active{
+        z-index: 2;
+    }
+
+    .sm-log-control{
+       display: none;
+    }
+
+    .log-control{
+        display: block !important;
+        margin-top: 17px;
+        margin-left: -2px;
+    }
+}    
+
 
 @media(max-width: 767px){
     #side_nav{
