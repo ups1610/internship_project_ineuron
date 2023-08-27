@@ -1,4 +1,5 @@
 from flask import Flask,abort,redirect,render_template,jsonify,session,url_for,request,flash
+from src.pipeline.prediction_pipeline import PredictPipeline
 from src.components.data_ingestion import DataIngestion
 from authlib.integrations.flask_client import OAuth
 from dotenv import load_dotenv
@@ -153,11 +154,55 @@ def base():
     for index in range(len(loc_values)):
         loc_label[index] = str(loc_label[index])
         loc_values[index] = int(loc_values[index])       
-    return render_template('base.html',session = session.get('person'),pi_data=json.dumps(pi_data),bar_label=json.dumps(bar_label),bar_values=json.dumps(bar_values),types_label=json.dumps(types_label),types_values=json.dumps(types_values),cuisines_labels=json.dumps(cuisines_labels),cuisines_values=json.dumps(cuisines_values),loc_label=json.dumps(loc_label),loc_values=json.dumps(loc_values))   
+    return render_template('base.html',session = session.get('person'),pi_data=json.dumps(pi_data),bar_label=json.dumps(bar_label),bar_values=json.dumps(bar_values),types_label=json.dumps(types_label),types_values=json.dumps(types_values),cuisines_labels=json.dumps(cuisines_labels),cuisines_values=json.dumps(cuisines_values),loc_label=json.dumps(loc_label),loc_values=json.dumps(loc_values))  
 
 @app.route('/show_div')
 def show_div():
     return jsonify(success=True)    
+
+#====================================== Prediction Time ===================================#  
+@app.route('/predict')
+def rating_predict():
+    obj = DataIngestion()
+    restaurant = list(obj.initiate_data_ingestion().name.unique())
+    location_path = os.path.join('notebooks/data','location.json')
+    cuisines_path = os.path.join('notebooks/data','cuisines.json')
+    rest_type_path = os.path.join('notebooks/data','rest_type.json')
+    with open(location_path, 'r') as f:
+        location_data = json.load(f)
+    with open(cuisines_path, 'r') as f:
+        cuisines_data = json.load(f)   
+    with open(rest_type_path, 'r') as f:
+        rest_type_data = json.load(f)           
+    return render_template('rating.html',locations = location_data,cuisines=cuisines_data,rest_data=rest_type_data,restaurant=restaurant)
+
+@app.route('/predict',methods=['GET','POST'])
+def prediction():
+    if request.method == 'GET':
+        return redirect(url_for('rating_predicit'))
+    else:
+        name = request.form.get('name')
+        online_book = request.form.get('booking_status')
+        vote = request.form.get('vote')
+        location = request.form.get('location')
+        rest_type = request.form.get('type')
+        cuisine = request.form.get('cuisine')
+        menu_item = request.form.get('menu')
+        cost = request.form.get('cost')   
+        book_table = '1' if online_book == '0' else '0'
+    features = {
+        'Unnamed: 0': 0,
+        'online_order':[int(online_book)],
+        'book_table': [int(book_table)],
+        'votes': [int(vote)],
+        'location': [int(location)],
+        'rest_type': [int(rest_type)],
+        'cuisines': [int(cuisine)],
+        'cost': [int(cost)]
+    }
+    obj = PredictPipeline()
+    obj.predict(features)
+    return redirect(url_for('rating_predict')) 
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", debug=True)

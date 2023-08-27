@@ -38,7 +38,7 @@ class ModelTrainer:
                 test_size=0.3,
                 random_state=10
             )
-            
+
             models = {
                 'LinearRegression' : LinearRegression(),
                 'DecisionTree' : DecisionTreeRegressor(min_samples_leaf=0.01),
