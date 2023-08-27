@@ -2,6 +2,12 @@ numpy
 pandas
 matplotlib
 seaborn
-Flask
+flask
+authlib
+requests
+gunicorn
+jsonify
+python-dotenv
+python-decouple
 
 -e .

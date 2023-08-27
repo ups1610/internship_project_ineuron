@@ -1,6 +1,7 @@
 import os
 import sys
 import pickle
+import sqlite3
 from src.exception import CustomException
 from src.logger import logging
 
@@ -24,3 +25,11 @@ def load_object(file_path):
     except Exception as e:
         logging.info('Exception Occured in load_object function utils')
         raise CustomException(e,sys)
+    
+def sqli_connect(db_name):
+    try:
+        conn = sqlite3.connect(db_name+'.db')
+        logging.info("Connected to database successfully")
+        return conn
+    except Exception as e:
+        raise CustomException(e,sys)      

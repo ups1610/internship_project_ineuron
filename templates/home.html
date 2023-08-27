@@ -3,9 +3,247 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Get Rating</title>
+    <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='images/favicon.ico') }}">
+    <!-- Bootstrap and font awesome cdn -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <!-- on click scroll cdn -->
+    <script src="jquery-1.10.2.min.js" type="text/javascript"></script>
+    <script src="scrollIt.js" type="text/javascript"></script>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/home.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/loader.css') }}">
+    <title>Rate Inn</title>
 </head>
 <body>
+    <!-- navbar -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-body-tertiary fixed-top" data-scroll-index="0">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="#">
+          <img src="{{ url_for('static', filename='images/logo.png')}}" width="30" height="30" alt="" class="img-hover-zoom rounded-circle">
+        </a>
+        <a class="navbar-brand text-color" data-scroll-nav="0" href="" style="font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;">Rate Inn</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <li class="nav-item link-info">
+              <a class="nav-link text-color text-dark" data-scroll-nav="1" href="#features">Features</a>
+            </li>
     
+            <li class="nav-item">
+                <a class="nav-link text-color text-dark" href="#about" data-scroll-nav="2">About</a>
+            </li>
+            {% if not session %}
+            <li class="nav-item">
+              <a class="nav-link text-color text-dark" href="{{url_for('login')}}">Login</a>
+           </li>
+           {% else %}
+           <li class="nav-item">
+            <a class="nav-link text-color text-dark" href="{{url_for('base')}}">Dashboard</a>
+         </li>
+         {% endif %}
+          </ul>
+          {% if not session %}
+          <form class="d-flex" role="search">
+            <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+            <button class="btn btn-outline-success" type="submit">Search</button>
+          </form>
+          {% else %}
+          <form class="d-flex px-5 media-x">
+            <div id="navbarNavDarkDropdown">
+              <ul class="navbar-nav">
+                <li class="nav-item dropdown">
+                  <button class="btn btn-transparent dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                    <img src="{{ url_for('static', filename='images/profile.png') }}" alt="" width="30" height="30" class="rounded"> {{session.userinfo.name.split(' ')[0]}}!
+                  </button>
+                  <ul class="dropdown-menu dropdown-menu-dark">
+                    <li><a class="dropdown-item" href="{{url_for('logout')}}">Log Out</a></li>
+                  </ul>
+                </li>
+              </ul>
+            </div>
+          </form>
+          {% endif %}
+        </div>
+      </div>
+    </nav>
+
+    <!-- carousal -->
+    <div id="carouselExampleSlidesOnly" class="carousel slide carousel-fade position-relative" data-bs-ride="carousel" data-scroll-index="1">
+        <div class="carousel-inner">
+          <div class="carousel-item active">
+            <img src="{{ url_for('static', filename='images/background_1.jpg') }}" class="d-block w-100 height-95" alt="restaurant">
+          </div>
+          <div class="carousel-item">
+            <img src="{{ url_for('static', filename='images/background_2.jpg') }}" class="d-block w-100 height-95" alt="restaurant">
+          </div>
+          <div class="carousel-item">
+            <img src="{{ url_for('static', filename='images/background_3.jpg') }}" class="d-block w-100 height-95" alt="restaurant">
+          </div>
+        </div>
+        <div class="box position-absolute top-50 start-50 translate-middle">
+          <i class="fa-brands fa-searchengin fs-5"></i></div>
+        <div class="typing-effect position-absolute top-50 start-50 translate-middle">
+          <span id="text" class="fs-5"></span>
+          <span class="cursor"></span>
+        </div>
+    </div>
+
+    <!-- features -->
+    <div class="features m-auto mt-2" id="features">
+      <h2 class="text-center" style="font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;">Features</h2>
+      <div class="container d-flex m-auto">
+        <div class="container-1 m-auto">
+          <div class="card mb-3 m-auto" style="max-width: 600px; border: none;">
+            <div class="row g-0">
+              <div class="col-md-4">
+                <img src="{{ url_for('static', filename='images/feature_1.jpg')}}" class="img-fluid rounded-start" alt="feature_1">
+              </div>
+              <div class="col-md-8 m-auto">
+                <div class="card-body w-100">
+                  <h5 class="card-title">Rating prediction</h5>
+                  <p class="card-text">Can know your restaurant rating<br>with optimized machine learning techniques<br>just by click.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="card mb-3 m-auto" style="max-width: 600px; border: none;">
+            <div class="row g-0">
+              <div class="col-md-4">
+                <img src="{{ url_for('static', filename='images/feature_2.jpg')}}" class="img-fluid rounded-start" alt="feature_2">
+              </div>
+              <div class="col-md-8">
+                <div class="card-body w-100">
+                  <h5 class="card-title">Restaurant Recommendation</h5>
+                  <p class="card-text">Get your updated<br>recommended restaurant details<br>of your interest !</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="container-2 m-auto">
+          <div class="card mb-3 m-auto" style="max-width: 600px; border: none;">
+            <div class="row g-0">
+              <div class="col-md-4">
+                <img src="{{ url_for('static', filename='images/feature_3.jpg')}}" class="img-fluid rounded-start" alt="feature_1">
+              </div>
+              <div class="col-md-8 m-auto">
+                <div class="card-body w-100">
+                  <h5 class="card-title">Visualize</h5>
+                  <p class="card-text">Get your data visualize<br>with top-most distribution
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="card mb-3 m-auto" style="max-width: 600px; border: none;">
+            <div class="row g-0">
+              <div class="col-md-4">
+                <img src="{{ url_for('static', filename='images/feature_4.jpg')}}" class="img-fluid rounded-start" alt="feature_2">
+              </div>
+              <div class="col-md-8">
+                <div class="card-body w-100">
+                  <h5 class="card-title">All Device feasible</h5>
+                  <p class="card-text">Responsive<br>support all divices<br>phone, tab, computer etc.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+      </div>
+       
+    </div>
+
+    <!-- about -->
+    <div id="about" class="about m-auto mt-2 curved-div position-relative" style="font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;">
+      <div class="row w-75 m-auto">
+        <div class="col px-5 py-5 col-img m-auto">
+          <img src="{{ url_for('static', filename='images/about_img_1.jpg')}}" alt="" class="img-1 mt-5 rounded-circle w-75">
+          <img src="{{ url_for('static', filename='images/about_img_2.png')}}" alt="" class="img-2 mt-2 rounded-circle w-25">
+          <img src="{{ url_for('static', filename='images/about_img_2.png')}}" alt="" class="img-3 rounded">
+        </div>
+        <div class="col py-5">
+          <h2 class="text-center">About Us</h2>
+          <p class="text-center"><span class="fs-5">Learn more</span> <span class="text-danger">About Project</span></p>
+          <p>This website offers a unique service that predicts restaurant ratings and provides personalized restaurant recommendations based on your preferences for food. Developed as part of an internship project, this platform employs advanced machine learning techniques, including ExtraTree Regression and TF-IDF vectorization, to enhance its predictive capabilities.</p>
+          <p>This internship project showcases the practical application of machine learning in the realm of culinary experiences. By combining the power of ExtraTree Regression and TF-IDF vectorization, the website offers users an intuitive and effective way to discover new dining options that align with their tastes and preferences.</p>
+        </div>
+      </div>
+      <svg viewBox="0 0 1440 319">
+        <path fill="#fff" fill-opacity="1" d="M0,32L48,80C96,128,192,224,288,224C384,224,480,128,576,90.7C672,53,768,75,864,96C960,117,1056,139,1152,149.3C1248,160,1344,160,1392,160L1440,160L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path>
+      </svg>
+    </div>
+
+    <!-- footer -->
+    <footer class="text-center text-white w-100" style="background-color: #ffffff;">
+    <div class="container">
+      <!-- Section: Social media -->
+      <section class="mb-4">
+        <!-- Facebook -->
+        <a
+          class="btn btn-link btn-floating btn-lg text-dark m-1"
+          href="#!"
+          role="button"
+          data-mdb-ripple-color="dark"
+          ><i class="fab fa-facebook-f"></i
+        ></a>
+  
+        <!-- Twitter -->
+        <a
+          class="btn btn-link btn-floating btn-lg text-dark m-1"
+          href="#!"
+          role="button"
+          data-mdb-ripple-color="dark"
+          ><i class="fab fa-twitter"></i
+        ></a>
+  
+        <!-- Google -->
+        <a
+          class="btn btn-link btn-floating btn-lg text-dark m-1"
+          href="www.google.com"
+          role="button"
+          data-mdb-ripple-color="dark"
+          ><i class="fab fa-google"></i
+        ></a>
+  
+        <!-- Resume -->
+        <a
+          class="btn btn-link btn-floating btn-lg text-dark m-1"
+          href="#!"
+          role="button"
+          data-mdb-ripple-color="dark"
+          ><i class="fa-solid fa-file"></i>
+        </a>
+  
+        <!-- Linkedin -->
+        <a
+          class="btn btn-link btn-floating btn-lg text-dark m-1"
+          href="https://www.linkedin.com/in/upendrapratapsingh-1610/"
+          role="button"
+          data-mdb-ripple-color="dark"
+          ><i class="fab fa-linkedin"></i
+        ></a>
+        <!-- Github -->
+        <a
+          class="btn btn-link btn-floating btn-lg text-dark m-1"
+          href="https://github.com/ups1610"
+          role="button"
+          data-mdb-ripple-color="dark"
+          ><i class="fab fa-github"></i
+        ></a>
+      </section>
+    </div>
+    <div class="text-center text-dark p-3 w-100" style="background-color: rgba(0, 0, 0, 0.2);">
+      © 2023 Copyright:
+      <a class="text-dark" href="https://linktr.ee/ups1610">Upendra Pratap Singh</a>
+    </div>
+  </footer>
+
+
+    <div class="loader"></div>
+    <script src="{{ url_for('static', filename='javascript/home.js') }}"></script>
+    <script src="{{ url_for('static', filename='javascript/loader.js') }}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
