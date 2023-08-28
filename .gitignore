@@ -153,6 +153,6 @@ dmypy.json
 cython_debug/
 
 config.env
-data
+data 
 artifacts
 logs

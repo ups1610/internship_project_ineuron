@@ -70,6 +70,11 @@ body{
         margin-top: 17px;
         margin-left: -2px;
     }
+
+    .content{
+        margin-left: 0;
+        width: 100%;
+    }
 }    
 
 
@@ -83,5 +88,156 @@ body{
 
     #side_nav.active{
         margin-left: 0;
+    }
+
+    .content{
+        margin-left: 0;
+        width: 100%;
+    }
+
+    .img-container{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        flex-wrap: nowrap;
+    }
+
+    .dash-container{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        flex-wrap: nowrap;
+    }
+
+}
+
+@media screen and (min-width:768px) and (max-width:800px){
+    .content{
+        margin-left: 32%;
+        width: 70%;
+    }
+
+    .img-container{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        flex-wrap: nowrap;
+    }
+
+    .dash-container{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        flex-wrap: nowrap;
+    }
+}
+
+@media screen and (min-width:801px) and (max-width:900px){
+    .content{
+        margin-left: 28%;
+        width: 73%;
+    }
+
+    .img-container{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        flex-wrap: nowrap;
+    }
+
+    .dash-container{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        flex-wrap: nowrap;
+    }
+
+    .fa-snowflake{
+        display: none;
+    }
+}
+
+@media screen and (min-width:901px) and (max-width:1000px){
+    .content{
+        margin-left: 25%;
+        width: 76%;
+    }
+
+    .img-container{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        flex-wrap: nowrap;
+    }
+
+    .dash-container{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        flex-wrap: nowrap;
+    }
+
+    .fa-snowflake{
+        display: none;
+    }
+}
+
+@media screen and (min-width:1001px) and (max-width:1100px){
+    .content{
+        margin-left: 24%;
+        width: 76%;
+    }
+
+    .dash-2{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        flex-wrap: nowrap;
+    }
+
+    .img-container{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        flex-wrap: nowrap;
+    }
+}
+
+
+@media screen and (min-width:1101px) and (max-width:1300px){
+    .content{
+        margin-left: 18.5%;
+        width: 83.5%;
+    }
+
+    .fa-snowflake{
+        display: none;
+    }
+}
+
+@media screen and (min-width:1301px) and (max-width:1460px){
+    .fa-snowflake{
+        display: none;
+    }
+}
+
+@media screen and (min-width:1533px){
+    .content{
+        margin-left: 15%;
+        width: 92.5%;
+    }
+
+    .fa-snowflake{
+        display: none;
     }
 }

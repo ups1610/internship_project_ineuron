@@ -8,6 +8,6 @@ requests
 gunicorn
 jsonify
 python-dotenv
-python-decouple
+gunicorn
 
 -e .

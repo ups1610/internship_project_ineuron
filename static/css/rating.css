@@ -152,3 +152,86 @@ body{
     background: #27ae60;
     color: white;
   }
+
+  .m-top{
+    margin-top: -5rem !important;
+    border: 2px solid red;
+  }
+
+  footer {
+    width: 100%;
+    height: 8rem;
+    text-align: center;
+    padding: 1rem;
+    font-size: .875rem;
+  }
+  
+  .wrapper {
+    margin: auto;
+  }
+  
+  footer small {
+    color: #ccc;
+    letter-spacing: .025rem;
+    margin-bottom: 1.5rem;
+    display: block;
+  }
+  
+  .footer-nav a {
+    color: #c74f78;
+    text-decoration: none;
+    margin: 0 .5rem;
+    display: inline-block;
+  }
+  
+  .footer-nav a:hover {
+    color: #f26896;
+    transition: color .15s ease-in-out;
+  }
+
+
+  @media(max-width: 767px){
+    .avtar{
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      flex-wrap: nowrap;
+      align-content: center;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .avtar .col{
+      width: 100%;
+      height: 100%;
+    }
+
+    #msform{
+      margin-top: 3rem;
+      width: 100%;
+      margin: auto;
+    }
+
+    #msform fieldset{
+      margin: auto;
+      width: 100%;
+    }
+
+    #msform i{
+      display: none;
+    }
+
+    .rating{
+      margin: auto;
+       margin-top: 25rem;
+    }
+
+    .recommendation{
+      margin: auto;
+    }
+
+    footer{
+      margin-top: 10rem;
+    }
+  }
+

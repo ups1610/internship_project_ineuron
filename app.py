@@ -1,5 +1,6 @@
 from flask import Flask,abort,redirect,render_template,jsonify,session,url_for,request,flash
 from src.pipeline.prediction_pipeline import PredictPipeline
+from src.pipeline.recommendation_pipeline import recommendRestaurant 
 from src.components.data_ingestion import DataIngestion
 from authlib.integrations.flask_client import OAuth
 from dotenv import load_dotenv
@@ -56,6 +57,7 @@ def google_login():
 @app.route("/logout")
 def logout():
     session.pop("person", None)
+    session.clear()
     return render_template('home.html',session=session.get("person"))  
 
 #====================================== Login ===================================#
@@ -170,11 +172,18 @@ def rating_predict():
     rest_type_path = os.path.join('notebooks/data','rest_type.json')
     with open(location_path, 'r') as f:
         location_data = json.load(f)
+        sorted_location_data = dict(sorted(location_data.items(), key=lambda x: x[1]))
     with open(cuisines_path, 'r') as f:
-        cuisines_data = json.load(f)   
+        cuisines_data = json.load(f)
+        sorted_cuisines_data = dict(sorted(cuisines_data.items(), key=lambda x: x[1]))   
     with open(rest_type_path, 'r') as f:
-        rest_type_data = json.load(f)           
-    return render_template('rating.html',locations = location_data,cuisines=cuisines_data,rest_data=rest_type_data,restaurant=restaurant)
+        rest_type_data = json.load(f) 
+        sorted_rest_type_data = dict(sorted(rest_type_data.items(), key=lambda x: x[1]))
+    result = session.get('data')
+    recommend_data = session.get('recommend')
+    session.pop('data',None)     
+    session.pop('recommend',None)              
+    return render_template('rating.html',locations = sorted_location_data,cuisines=sorted_cuisines_data,rest_data=sorted_rest_type_data,restaurant=restaurant,result=result,recommend=recommend_data)
 
 @app.route('/predict',methods=['GET','POST'])
 def prediction():
@@ -194,14 +203,21 @@ def prediction():
         'Unnamed: 0': 0,
         'online_order':[int(online_book)],
         'book_table': [int(book_table)],
-        'votes': [int(vote)],
+        'votes': [int(vote)*168],
         'location': [int(location)],
         'rest_type': [int(rest_type)],
         'cuisines': [int(cuisine)],
         'cost': [int(cost)]
     }
     obj = PredictPipeline()
-    obj.predict(features)
+    rate = obj.predict(features)
+    predict_data = {
+        'name':name,
+        'rate':round(rate,1)
+    }
+    recommend_obj = recommendRestaurant()
+    session['recommend'] = recommend_obj.get_recommend(name) 
+    session['data'] = predict_data
     return redirect(url_for('rating_predict')) 
 
 if __name__ == "__main__":

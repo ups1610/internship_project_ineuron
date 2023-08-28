@@ -119,11 +119,51 @@
           <label for="cost" class="fs-4">How much you spend approx?<br><span class="fs-6 text-secondary">( Cost / person )</span></label>
           <input type="text" name="cost" id="cost" class="input" required>
           <input type="button" name="previous" class="previous btn btn-outline-danger w-25 p-auto mt-2" value="Previous"/>
-          <button type="submit" name="submit" class="submit btn btn-success w-25 p-auto mt-2">Predict</button>
+          <button type="submit" name="submit" class="submit btn btn-success w-25 p-auto mt-2" data-bs-toggle="modal" data-bs-target="#myModal">Predict</button>
         </fieldset>
+        {% if result %}
+        <div class="position-absolute top-50 start-0 translate-middle">
+          <i class="fa-solid fa-down-long fa-beat text-dark fs-1"></i>
+        </div>
+        {% endif %}
       </form>
         </div>
     </div>
+
+    {% if result %}
+    <div class="rating">
+      <h5 class="text-center text-secondary">According to my Knowledge Your Restaurant <strong>{{result.name}}</strong> Rate <strong> {{result.rate}}</strong> ⭐.</h5>
+    </div>
+    {% endif %}
+    {% if recommend %}
+    <div class="recommendation m-auto">
+      <h2 class="text-center">Recommendation For You</h2>
+      <p class="text-center">( Predict your favourite restaurant rating )</p>
+      <div class="row row-cols-1 row-cols-md-3 g-4 w-75 m-auto">
+       {% for title in recommend %}
+        <div class="col">
+          <div class="card h-100">
+            <img src="{{ url_for('static', filename='images/default_card.jpg') }}" class="card-img-top" alt="...">
+            <div class="card-body">
+              <h5 class="card-title">{{title}}</h5>
+            </div>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+    {% endif %}
+
+    <footer>
+      <div class="wrapper">
+        <small>&copy;2023 <strong>Rate Inn</strong>, All Rights Reserved</small>
+        <nav class="footer-nav">
+          <a href="#">Back to Top</a>
+          <a href="#">Terms of Use</a>
+          <a href="#">Privacy</a>
+        </nav>
+      </div>
+    </footer>
     
     <div class="loader"></div>
     
@@ -135,5 +175,7 @@
     ></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.min.js"></script>
     <script src="{{ url_for('static', filename='javascript/rating.js') }}"></script>
+    
+  
 </body>
 </html>
