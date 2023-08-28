@@ -154,5 +154,6 @@ cython_debug/
 
 config.env
 notebooks/data/zomato.csv 
-artifacts
+artifacts/model.pkl
+artifacts/recommendation.npy
 logs
