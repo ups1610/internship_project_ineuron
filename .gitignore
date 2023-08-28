@@ -153,6 +153,6 @@ dmypy.json
 cython_debug/
 
 config.env
-data 
+notebooks/data/zomato.csv 
 artifacts
 logs
