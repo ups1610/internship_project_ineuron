@@ -162,7 +162,7 @@ def base():
 def show_div():
     return jsonify(success=True)    
 
-#====================================== Prediction Time ===================================#  
+#====================================== Prediction Time ====================================#  
 @app.route('/predict')
 def rating_predict():
     obj = DataIngestion()
