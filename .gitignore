@@ -157,3 +157,4 @@ notebooks/data/zomato.csv
 artifacts/model.pkl
 artifacts/recommendation.npy
 logs
+extracted_data

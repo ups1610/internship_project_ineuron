@@ -13,7 +13,7 @@ class PredictPipeline:
     def predict(self,features):
         try:
             logging.info("Predicting..")
-            model_path=os.path.join('artifacts','model.pkl')
+            model_path=os.path.join('artifacts','compressed_model.zip')
             model=load_object(model_path)
             
             test_data = pd.DataFrame(features)

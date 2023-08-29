@@ -5,7 +5,7 @@ import numpy as np
 import pandas as pd
 from src.logger import logging
 from dataclasses import dataclass
-from src.utils import save_object
+from src.utils import com_save_object
 from src.exception import CustomException
 from sklearn.model_selection import train_test_split
 from sklearn.linear_model import LinearRegression
@@ -23,7 +23,7 @@ from src.components.data_transformation import DataTransformation
 @dataclass 
 class ModelTrainerConfig:
     trained_model_file_path = os.path.join('artifacts','model.pkl')
-
+    trained_model_com_file_path = os.path.join('artifacts','compressed_model.zip')
 
 class ModelTrainer:
     def __init__(self):
@@ -65,9 +65,10 @@ class ModelTrainer:
             logging.info(f"{model_details}")
             logging.info("Confusion Matrix on Test Data")
             logging.info(f"{pd.crosstab(y_test, y_pred, rownames=['True'], colnames=['Predicted'], margins=True)}")
-            save_object(
+            com_save_object(
                  file_path=self.model_trainer_config.trained_model_file_path,
-                 obj=best_fit_model
+                 obj=best_fit_model,
+                 compressed_path=self.model_trainer_config.trained_model_com_file_path
             )
             return best_fit_model
 
