@@ -215,8 +215,8 @@ def prediction():
         'name':name,
         'rate':round(rate,1)
     }
-    recommend_obj = recommendRestaurant()
-    session['recommend'] = recommend_obj.get_recommend(name) 
+    # recommend_obj = recommendRestaurant()
+    # session['recommend'] = recommend_obj.get_recommend(name) 
     session['data'] = predict_data
     return redirect(url_for('rating_predict')) 
 
