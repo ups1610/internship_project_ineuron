@@ -15,8 +15,8 @@ app = Flask(__name__)
 
 load_dotenv()
 appConf = {
-    "OAUTH2_CLIENT_ID": os.getenv('OAUTH2_CLIENT_ID'),
-    "OAUTH2_CLIENT_SECRET": os.getenv('OAUTH2_CLIENT_SECRET'),
+    "OAUTH2_CLIENT_ID": "222211450006-o9pglqmuj1k5d8niq5lvfihp6389qear.apps.googleusercontent.com",
+    "OAUTH2_CLIENT_SECRET": "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",
     "OAUTH2_META_URL": "https://accounts.google.com/.well-known/openid-configuration",
     "FLASK_SECRET": "rateinn",
     "FLASK_PORT": 5000
