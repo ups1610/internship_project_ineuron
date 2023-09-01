@@ -18,7 +18,7 @@ appConf = {
     "OAUTH2_CLIENT_ID": os.getenv('OAUTH2_CLIENT_ID'),
     "OAUTH2_CLIENT_SECRET": os.getenv('OAUTH2_CLIENT_SECRET'),
     "OAUTH2_META_URL": "https://accounts.google.com/.well-known/openid-configuration",
-    "FLASK_SECRET": os.getenv('FLASK_SECRET'),
+    "FLASK_SECRET": "rateinn",
     "FLASK_PORT": 5000
 }
 
